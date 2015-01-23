@@ -10,3 +10,4 @@ lib
 docs
 lib
 src/apps
+buildSrc/libs/VeracodeJavaAPI.jar
