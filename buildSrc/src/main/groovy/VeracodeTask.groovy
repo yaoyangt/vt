@@ -1,9 +1,11 @@
+import com.veracode.apiwrapper.AbstractAPIWrapper
 import org.gradle.api.DefaultTask
 import org.gradle.api.Project
 import org.gradle.api.tasks.TaskAction
 import org.gradle.util.GFileUtils
 import com.veracode.apiwrapper.wrappers.UploadAPIWrapper
 import com.veracode.apiwrapper.wrappers.ResultsAPIWrapper
+import com.veracode.apiwrapper.wrappers.MitigationAPIWrapper
 
 abstract class VeracodeTask extends DefaultTask {
 	final static String OPTIONAL = '-optional'
@@ -18,7 +20,8 @@ abstract class VeracodeTask extends DefaultTask {
     'maxUploadAttempts': '123',
     'fileId': 'xxx',
     'buildId1': '123',
-    'buildId2': '123'
+    'buildId2': '123',
+	'mitigationCsv': 'xxx.csv'
     ]
 
 	def requiredArguments = []
@@ -68,15 +71,20 @@ abstract class VeracodeTask extends DefaultTask {
 	}
 
 	protected UploadAPIWrapper loginUpdate() {
-	    UploadAPIWrapper update = new UploadAPIWrapper()
-	    update.setUpCredentials(veracodeUser.username, veracodeUser.password)
-	    return update
+	    return loginForApiWrapper(new UploadAPIWrapper())
 	}
 
 	protected ResultsAPIWrapper loginResults() {
-	    ResultsAPIWrapper results = new ResultsAPIWrapper()
-	    results.setUpCredentials(veracodeUser.username, veracodeUser.password)
-	    return results
+	    return loginForApiWrapper(new ResultsAPIWrapper())
+	}
+
+	protected MitigationAPIWrapper loginMitigation() {
+		return loginForApiWrapper(new MitigationAPIWrapper());
+	}
+
+	private AbstractAPIWrapper loginForApiWrapper(AbstractAPIWrapper apiWrapper) {
+		apiWrapper.setUpCredentials(veracodeUser.username, veracodeUser.password)
+		return apiWrapper
 	}
 
 	protected Node writeXml(String filename, String content) {
