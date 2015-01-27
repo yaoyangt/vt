@@ -27,11 +27,14 @@ class GenerateMitigationCsvTask extends VeracodeTask {
         int issueIdColumnIndex = headers.findIndexOf() {
             return it.equalsIgnoreCase('issue id')
         }
+        int mitigationStatusColumnIndex = headers.findIndexOf() {
+            return it.equalsIgnoreCase('mitigation status')
+        }
         List<String> issueIdList = new ArrayList<String>()
 
         while(csvFileContents.hasNext()) {
             String[] row = csvFileContents.next()
-            if (row[severityColumnIndex] >= project.severity) {
+            if (row[severityColumnIndex] >= project.severity && row[mitigationStatusColumnIndex].equals('Not Mitigated')) {
                 issueIdList.add(row[issueIdColumnIndex])
             }
         }
