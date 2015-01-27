@@ -21,7 +21,8 @@ abstract class VeracodeTask extends DefaultTask {
     'fileId': 'xxx',
     'buildId1': '123',
     'buildId2': '123',
-	'mitigationCsv': 'xxx.csv'
+	'csvFileName': 'xxx.csv',
+	'severity': '3'
     ]
 
 	def requiredArguments = []

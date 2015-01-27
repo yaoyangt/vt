@@ -24,6 +24,7 @@ class VeracodePlugin implements Plugin<Project> {
 		project.task(ReportFlawsByTeamTask.NAME, type: ReportFlawsByTeamTask)
 		project.task(ReportFlawsDiffTask.NAME, type: ReportFlawsDiffTask)
 		project.task(VeracodeMitigationTask.NAME, type: VeracodeMitigationTask)
+		project.task(GenerateMitigationCsvTask.NAME, type: GenerateMitigationCsvTask)
 		project.configure(project.getTasks()) {
 			it.veracodeUser = project.veracodeUser
 		}

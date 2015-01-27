@@ -1,12 +1,13 @@
 class VeracodeScanResultsInCsvTask extends VeracodeTask {
 	static final String NAME = 'veracodeScanResultsInCsv'
+	static final String SCAN_RESULTS_CSV_FILENAME = 'scan-results.csv'
 
 	VeracodeScanResultsInCsvTask() {
 		description = 'Gets the Veracode scan results based on the build id passed in and convert it to csv format'
 	}
 
 	void run() {
-		File csvFile = new File('build/scan-results.csv')
+		File csvFile = new File("build/${SCAN_RESULTS_CSV_FILENAME}")
 	    csvFile.newWriter()
 	    csvFile << ["Issue Id",
 	            "Severity",
